@@ -1,0 +1,44 @@
+<div *ngIf="currentProduct">
+  <div class="card">
+    <div class="card-header"> {{currentProduct.name}}</div>
+    <div class="card-body" >
+      <div>
+        <img [src]="this.catalogueService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()"
+             style="height: 100px">
+        <button class="btn btn-sm btn-warning fa fa-edit" (click)="onEditPhoto(currentProduct)"></button>
+        <div *ngIf="currentProduct==currentProduct && photoToEdit==true">
+          <input type="file" (change)="onChargePhotoSelectedToUpload($event)">
+          <button *ngIf="buttonUploadVisible()" class="btn btn-sm btn-success fa fa-upload" (click)="onUploadPhotoSelected()"></button>
+        </div>
+      </div>
+      <div>Prix : {{currentProduct.currentPrice}}</div>
+      <div>
+        <span *ngIf="currentProduct.promotion">
+          <img src="assets/images/promo.png" class="img-thumbnail rounded-circle " style="height :30px">
+        </span>
+        <span *ngIf="currentProduct.selected">
+          <img src="assets/images/favorite.png" class="img-thumbnail rounded-circle " style="height :30px">
+        </span>
+        <span *ngIf="currentProduct.available">
+          <img src="assets/images/available.png" class="img-thumbnail rounded-circle " style="height :30px">
+        </span>
+        <span *ngIf="!currentProduct.available">
+          <img src="assets/images/notAvailable.png" class="img-thumbnail rounded-circle " style="height :30px">
+        </span>
+      </div>
+      <div>
+        <form *ngIf="currentProduct.available" #f="ngForm" (ngSubmit)="onAddProductsToCaddy(currentProduct)">
+          <div class="form-group">
+            <label> Qauntité : </label>
+            <input type="number" name="quantity" [(ngModel)]="currentProduct.quantity"
+                   style="width:30px; height: 20px" min="1" max="20">
+            <button class="border border-success rounded">
+              <img src="assets/images/caddy.png" class="img-thumbnail" style="height :20px">
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
