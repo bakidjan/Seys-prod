@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -7,12 +7,13 @@ import {Observable} from 'rxjs';
 })
 export class CategoryService {
 
-  public host: string = "http://localhost:8080";
+  public host: string = 'http://localhost:8080';
 
-  constructor( private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  getCategory(){
-    return this.httpClient.get(this.host+"/categories")
+  getCategory() {
+    return this.httpClient.get(this.host + '/categories');
   }
 
 }

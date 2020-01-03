@@ -1,43 +1,85 @@
 <div *ngIf="currentProduct">
-  <div class="card">
-    <div class="card-header"> {{currentProduct.name}}</div>
-    <div class="card-body" >
-      <div>
-        <img [src]="this.catalogueService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()"
-             style="height: 100px">
-        <button class="btn btn-sm btn-warning fa fa-edit" (click)="onEditPhoto(currentProduct)"></button>
-        <div *ngIf="currentProduct==currentProduct && photoToEdit==true">
-          <input type="file" (change)="onChargePhotoSelectedToUpload($event)">
-          <button *ngIf="buttonUploadVisible()" class="btn btn-sm btn-success fa fa-upload" (click)="onUploadPhotoSelected()"></button>
-        </div>
-      </div>
-      <div>Prix : {{currentProduct.currentPrice}}</div>
-      <div>
+  <div class="card" *ngIf="mode==0">
+    <div class="card-header"> {{currentProduct.name}}
+      <span class="btn btn-sm btn-danger fa fa-edit" (click)="onEditProduct()"></span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div>
+            <img [src]="this.catalogueService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()"
+                 height="300" class="img-fluid rounded">
+            <button class="btn btn-sm btn-warning fa fa-edit" (click)="onEditPhoto(currentProduct)"></button>
+            <div *ngIf="currentProduct==currentProduct && photoToEdit==true">
+              <input type="file" (change)="onChargePhotoSelectedToUpload($event)">
+              <button *ngIf="buttonUploadVisible()" class="btn btn-sm btn-success fa fa-upload"
+                      (click)="onUploadPhotoSelected()"></button>
+            </div>
+          </div>
+          <div>Prix : {{currentProduct.currentPrice}}</div>
+          <div>
         <span *ngIf="currentProduct.promotion">
           <img src="assets/images/promo.png" class="img-thumbnail rounded-circle " style="height :30px">
         </span>
-        <span *ngIf="currentProduct.selected">
+            <span *ngIf="currentProduct.selected">
           <img src="assets/images/favorite.png" class="img-thumbnail rounded-circle " style="height :30px">
         </span>
-        <span *ngIf="currentProduct.available">
+            <span *ngIf="currentProduct.available">
           <img src="assets/images/available.png" class="img-thumbnail rounded-circle " style="height :30px">
         </span>
-        <span *ngIf="!currentProduct.available">
+            <span *ngIf="!currentProduct.available">
           <img src="assets/images/notAvailable.png" class="img-thumbnail rounded-circle " style="height :30px">
         </span>
-      </div>
-      <div>
-        <form *ngIf="currentProduct.available" #f="ngForm" (ngSubmit)="onAddProductsToCaddy(currentProduct)">
-          <div class="form-group">
-            <label> Qauntité : </label>
-            <input type="number" name="quantity" [(ngModel)]="currentProduct.quantity"
-                   style="width:30px; height: 20px" min="1" max="20">
-            <button class="border border-success rounded">
-              <img src="assets/images/caddy.png" class="img-thumbnail" style="height :20px">
-            </button>
           </div>
-        </form>
+          <div>
+            <form *ngIf="currentProduct.available" #f="ngForm" (ngSubmit)="onAddProductsToCaddy(currentProduct)">
+              <div class="form-group">
+                <label> Qauntité : </label>
+                <input type="number" name="quantity" [(ngModel)]="currentProduct.quantity"
+                       style="width:30px; height: 20px" min="1" max="20">
+                <button class="border border-success rounded">
+                  <img src="assets/images/caddy.png" class="img-thumbnail" style="height :20px">
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div> Description : {{currentProduct.description}}</div>
+        </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="mode==1">
+    <div class="card-body border border-info">
+      <form #f="ngForm" (ngSubmit)="onUpdateProduct(f.value)">
+        <div class="form-group">
+          <label>Nom</label>
+          <input class="form-control" type="text" name="name" ngModel [(ngModel)]="currentProduct.name">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input class="form-control" type="text" name="description" ngModel [(ngModel)]="currentProduct.description">
+        </div>
+        <div class="form-group">
+          <label>Prix</label>
+          <input class="form-control" type="number" name="currentPrice" ngModel
+                 [(ngModel)]="currentProduct.currentPrice">
+        </div>
+        <div class="form-group">
+          <label>Promotion</label>
+          <input class="form-control" type="text" name="promotion" ngModel [(ngModel)]="currentProduct.promotion">
+        </div>
+        <div class="form-group">
+          <label>Available</label>
+          <input class="form-control" type="text" name="available" ngModel [(ngModel)]="currentProduct.available">
+        </div>
+        <div class="form-group">
+          <label>Selected</label>
+          <input class="form-control" type="text" name="selected" ngModel [(ngModel)]="currentProduct.selected">
+        </div>
+        <button class="btn btn-sm btn-success" type="submit">Update</button>
+      </form>
     </div>
   </div>
 </div>

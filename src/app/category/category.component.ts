@@ -1,7 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {CategoryService} from '../services/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CatalogueService} from '../services/catalogue.service';
+
+@Injectable({
+  providedIn: 'root',
+})
 
 @Component({
   selector: 'app-category',
@@ -10,12 +14,10 @@ import {CatalogueService} from '../services/catalogue.service';
 })
 export class CategoryComponent implements OnInit {
   private categories: any;
-  private currentCategory: any;
+  public currentCategory: any;
 
   constructor(private categoryService: CategoryService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private catalogueService: CatalogueService) {
+              private router: Router) {
   }
 
   ngOnInit() {

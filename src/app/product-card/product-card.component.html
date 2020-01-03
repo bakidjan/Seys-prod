@@ -1,18 +1,20 @@
 <div>
   <input class="form-control" placeholder="check..." type="text" [(ngModel)]="term">
-  <div class="card"  *ngFor="let p of this.product.products._embedded.products |filter:term">
+  <div class="card" *ngFor="let p of this.product.products._embedded.products
+  |filter:term">
     <div class="card-header"> {{p.name}}</div>
-    <div class="card-body" >
+    <div class="card-body">
       <div>
         <img [src]="this.catalogueService.host+'/photoProduct/'+p.id+'?ts='+getTS()"
              style="height: 100px" (click)="onProductDetail(p)" class="clickable">
         <button class="btn btn-sm btn-warning fa fa-edit" (click)="onEditPhoto(p)"></button>
         <div *ngIf="product.currentProduct==p && photoToEdit==true">
           <input type="file" (change)="onChargePhotoSelectedToUpload($event)">
-          <button *ngIf="buttonUploadVisible()" class="btn btn-sm btn-success fa fa-upload" (click)="onUploadPhotoSelected()"></button>
+          <button *ngIf="buttonUploadVisible()" class="btn btn-sm btn-success fa fa-upload"
+                  (click)="onUploadPhotoSelected()"></button>
         </div>
       </div>
-      <div>Prix : {{p.currentPrice}}</div>
+      <div>${{p.currentPrice}}</div>
       <div>
         <span *ngIf="p.promotion">
           <img src="assets/images/promo.png" class="img-thumbnail rounded-circle " style="height :30px">
@@ -42,3 +44,5 @@
     </div>
   </div>
 </div>
+
+

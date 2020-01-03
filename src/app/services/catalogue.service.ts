@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -6,15 +6,17 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class CatalogueService {
-  public host: string="http://localhost:8080";
+  public host: string = 'http://localhost:8080';
 
-  constructor( private httpClient: HttpClient) { }
-  public getProduct(url, page : number, size : number){
-    return this.httpClient.get(url+"/products?page="+page+"&size="+size);
+  constructor(private httpClient: HttpClient) {
   }
 
-  getResource(url){
-    return this.httpClient.get(url)
+/*  public getProduct(url, page: number, size: number) {
+    return this.httpClient.get(url + '/products?page=' + page + '&size=' + size);
+  }*/
+
+  getResource(url) {
+    return this.httpClient.get(url);
   }
 
   uploadPhoto(photoToUpload: File, id: number): Observable<HttpEvent<{}>> {
@@ -27,4 +29,9 @@ export class CatalogueService {
     });
     return this.httpClient.request(req);
   }
+
+  updateProduct(url, data) {
+    return this.httpClient.put(url, data);
+  }
+
 }

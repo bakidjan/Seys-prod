@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CatalogueService} from '../services/catalogue.service';
 import {ProductsComponent} from '../products/products.component';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {CategoryComponent} from '../category/category.component';
 
 @Component({
   selector: 'app-product-card',
@@ -18,7 +19,9 @@ export class ProductCardComponent implements OnInit {
 
   constructor(private catalogueService: CatalogueService,
               private product: ProductsComponent,
-              private router: Router) { }
+              private router: Router,
+              private categoryComponent: CategoryComponent) {
+  }
 
   ngOnInit() {
   }
@@ -36,29 +39,34 @@ export class ProductCardComponent implements OnInit {
     this.currentPhotoSelected = this.photoSelectedToUpload.item(0);
     this.progress = 0;
     this.catalogueService.uploadPhoto(this.currentPhotoSelected, this.product.currentProduct.id)
-      .subscribe(event=>{
+      .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           alert('Photo chargée avec succès');
           //this.getProductSelected('/products/search/selectedProducts');
-          this.timeStamp  = new Date();
+          this.timeStamp = new Date();
         }
       }, error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
     this.photoSelectedToUpload = undefined;
   }
 
   getTS() {
     return this.timeStamp;
   }
+
   buttonUploadVisible() {
     return this.photoSelectedToUpload;
   }
 
   onProductDetail(p) {
     let url = btoa(p._links.product.href);
-    this.router.navigateByUrl("detail-product/"+url)
+    this.router.navigateByUrl('detail-product/' + url);
+    this.categoryComponent.currentCategory = undefined;
+
   }
+
+
 }
