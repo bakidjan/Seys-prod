@@ -26,4 +26,8 @@ export class AppComponent implements OnInit{
   onSelectedProducts() {
     this.router.navigateByUrl("products/5/0")
   }
+
+  onAddNewProduct() {
+    this.router.navigateByUrl("new-product")
+  }
 }

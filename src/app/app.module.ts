@@ -11,6 +11,7 @@ import {ProductCardComponent} from './product-card/product-card.component';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {DetailProductComponent} from './detail-product/detail-product.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NewProductComponent } from './new-product/new-product.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ProductsComponent,
     ProductCardComponent,
     DetailProductComponent,
+    NewProductComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
 <div *ngIf="currentProduct">
   <div class="card" *ngIf="mode==0">
-    <div class="card-header"> {{currentProduct.name}}
-      <span class="btn btn-sm btn-danger fa fa-edit" (click)="onEditProduct()"></span>
+    <div class="card-header clearfix"> {{currentProduct.name}}
+      <span class="btn btn-sm btn-danger fa fa-edit float-right" (click)="onEditProduct()"></span>
     </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4">
+    <div class="card-body ">
+      <div class="row ">
+        <div class="col-md-5 ">
           <div>
             <img [src]="this.catalogueService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()"
                  height="300" class="img-fluid rounded">
@@ -44,43 +44,74 @@
             </form>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-1"></div>
+        <div class="col-md-6 border border-2 ">
           <div> Description : {{currentProduct.description}}</div>
         </div>
       </div>
     </div>
   </div>
   <div *ngIf="mode==1">
-    <div class="card-body border border-info">
+    <div class="card-body rounded border border-info">
       <form #f="ngForm" (ngSubmit)="onUpdateProduct(f.value)">
-        <div class="form-group">
-          <label>Nom</label>
-          <input class="form-control" type="text" name="name" ngModel [(ngModel)]="currentProduct.name">
+
+        <div class="form-group row">
+          <label for="name" class="col-sm-2 col-form-label">Nom</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="name" id="name" ngModel [(ngModel)]="currentProduct.name">
+          </div>
         </div>
-        <div class="form-group">
-          <label>Description</label>
-          <input class="form-control" type="text" name="description" ngModel [(ngModel)]="currentProduct.description">
+
+
+        <div class="form-group row">
+          <label for="description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" type="text" name="description" id="description" ngModel [(ngModel)]="currentProduct.description"></textarea>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Prix</label>
-          <input class="form-control" type="number" name="currentPrice" ngModel
-                 [(ngModel)]="currentProduct.currentPrice">
+
+        <div class="form-group row">
+          <label for="currentPrice" class="col-sm-2 col-form-label">Prix</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="number" name="currentPrice" id="currentPrice" ngModel [(ngModel)]="currentProduct.currentPrice">
+          </div>
         </div>
-        <div class="form-group">
-          <label>Promotion</label>
-          <input class="form-control" type="text" name="promotion" ngModel [(ngModel)]="currentProduct.promotion">
+
+
+        <div class="form-group row">
+          <div class="col-sm-2">Choice</div>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="Promotion" id="Promotion" ngModel [(ngModel)]="currentProduct.promotion">
+              <label class="form-check-label" for="Promotion">
+                Promotion
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="available" id="available" ngModel [(ngModel)]="currentProduct.available">
+              <label class="form-check-label" for="available">
+                Available
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="selected" id="selected" ngModel [(ngModel)]="currentProduct.selected">
+              <label class="form-check-label" for="selected">
+                Selected
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Available</label>
-          <input class="form-control" type="text" name="available" ngModel [(ngModel)]="currentProduct.available">
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Selected</label>
-          <input class="form-control" type="text" name="selected" ngModel [(ngModel)]="currentProduct.selected">
-        </div>
-        <button class="btn btn-sm btn-success" type="submit">Update</button>
       </form>
     </div>
   </div>
+  <p></p>
 </div>
 
