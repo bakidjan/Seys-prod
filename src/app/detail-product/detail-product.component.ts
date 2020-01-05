@@ -76,6 +76,7 @@ export class DetailProductComponent implements OnInit {
 
   onUpdateProduct(value) {
     let url = this.currentProduct._links.self.href;
+    console.log(this.url)
     /*
     * patchResource permet la mise en jour d'un champ independemment
     * sinon un put change tous les champs*/
@@ -83,8 +84,7 @@ export class DetailProductComponent implements OnInit {
       .subscribe(data => {
         confirm('est vous sûr ?');
         this.currentProduct = data;
-        this.mode=0;
-        //this.router.navigateByUrl('/detail-product/' + url);
+        this.mode = 0;
       }, error => {
         console.log(error);
       });
