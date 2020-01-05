@@ -75,11 +75,15 @@ export class DetailProductComponent implements OnInit {
   }
 
   onUpdateProduct(value) {
-    //let url = btoa(p._links.product.href);
-    this.catalogueService.updateProduct(this.url, value)
+    let url = this.currentProduct._links.self.href;
+    /*
+    * patchResource permet la mise en jour d'un champ independemment
+    * sinon un put change tous les champs*/
+    this.catalogueService.patchResource(url, value)
       .subscribe(data => {
-        console.log(data);
         confirm('est vous sûr ?');
+        this.currentProduct = data;
+        this.mode=0;
         //this.router.navigateByUrl('/detail-product/' + url);
       }, error => {
         console.log(error);

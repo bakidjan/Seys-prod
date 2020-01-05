@@ -33,5 +33,8 @@ export class CatalogueService {
   updateProduct(url, data) {
     return this.httpClient.put(url, data);
   }
+  patchResource(url, data){
+    return this.httpClient.patch(url,data);
+  }
 
 }
